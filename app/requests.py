@@ -1,3 +1,4 @@
+from app import create_app
 import urllib.request,json
 from .models import Sources,Articles
 from datetime import datetime
@@ -8,7 +9,7 @@ api_key = None
 #getting the news base url
 base_url = None
 
-#getting the articlces url
+#getting the articles url
 articles_url = None
 
 def configure_request(app):
@@ -54,10 +55,8 @@ def process_sources(sources_list):
 		language = source_item.get('language')
 		country = source_item.get('country')
 
-
 		sources_object = Sources(id,name,description,url,category,country,language)
 		sources_results.append(sources_object)
-
 
 	return sources_results
 
@@ -94,9 +93,4 @@ def process_articles(articles_list):
 			articles_result = Articles(id,author,title,description,url,image,date)
 			articles_object.append(articles_result)	
 		
-
-		
-
-		
-
 	return articles_object
