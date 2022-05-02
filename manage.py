@@ -1,24 +1,19 @@
-import os
+from app import create_app
+from flask_script import Manager, Server
 
-class Config:
+# Creating app instance
+app = create_app('development')
 
-	NEWS_SOURCES_BASE_URL ='https://newsapi.org/v2/sources?language=en&category={}&apiKey={}'
-	ARTICLES_BASE_URL = 'https://newsapi.org/v2/everything?language=en&sources={}&apiKey={}'
-	NEWS_API_KEY = os.environ.get('NEWS_API_KEY')
-	@staticmethod
-	def init_app(app):
-		pass
+manager = Manager(app)
+manager.add_command('server',Server)
+
+@manager.command
+def test():
+    """Run the unit tests."""
+    import unittest
+    tests = unittest.TestLoader().discover('tests')
+    unittest.TextTestRunner(verbosity=2).run(tests)
 
 
-class ProdConfig(Config):
-    pass
-
-
-class DevConfig(Config):
-    DEBUG = True
-
-config_options = {
-'development':DevConfig,
-'production':ProdConfig
-
-}
+if __name__ == '__main__':
+    manager.run()
