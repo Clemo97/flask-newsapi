@@ -17,7 +17,6 @@ def configure_request(app):
 	base_url = app.config['NEWS_SOURCES_BASE_URL']
 	articles_url = app.config['ARTICLES_BASE_URL']
 
-
 def get_sources(category):
 	'''
 	Function that gets the json response to our url request
@@ -37,7 +36,7 @@ def get_sources(category):
 	return sources_results
 
 def process_sources(sources_list):
-    	'''
+	'''
 	Function that processes the news sources results and turns them into a list of objects
 	Args:
 		sources_list: A list of dictionaries that contain sources details
@@ -63,7 +62,7 @@ def process_sources(sources_list):
 	return sources_results
 
 def get_articles(id):
-    	'''
+	'''
 	Function that processes the articles and returns a list of articles objects
 	'''
 	get_articles_url = articles_url.format(id,api_key)
@@ -78,3 +77,26 @@ def get_articles(id):
 
 	return articles_object
 
+def process_articles(articles_list):
+	'''
+	'''
+	articles_object = []
+	for article_item in articles_list:
+		id = article_item.get('id')
+		author = article_item.get('author')
+		title = article_item.get('title')
+		description = article_item.get('description')
+		url = article_item.get('url')
+		image = article_item.get('urlToImage')
+		date = article_item.get('publishedAt')
+		
+		if image:
+			articles_result = Articles(id,author,title,description,url,image,date)
+			articles_object.append(articles_result)	
+		
+
+		
+
+		
+
+	return articles_object
