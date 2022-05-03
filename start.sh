@@ -1,2 +1,2 @@
 export NEWS_API_KEY = '42f918516c0842bba13446f96676e726'
-SECRET_KEY = 'Drmhze6EPchbsirv0fN_81Bj-nA'
+export SECRET_KEY = 'Drmhze6EPchbsirv0fN_81Bj-nA'
